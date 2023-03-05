@@ -2,18 +2,17 @@
 
 ## users テーブル
 
-| Column                    | Type    | Option         |
-| ------------------------- | ------- | -------------- |
-| nickname                  | string  | null: false    |
-| email                     | string  | null: false    |
-| encrypted_password        | string  | null: false    |
-| last_name                 | string  | null: false    |
-| first_name                | string  | null: false    |
-| kana_last_name            | string  | null: false    |
-| kana_first_name           | string  | null: false    |
-| birthday                  | string  | null: false    |
+| Column                    | Type    | Option                      |
+| ------------------------- | ------- | --------------------------- |
+| nickname                  | string  | null: false                 |
+| email                     | string  | null: false,  unique: true  |
+| encrypted_password        | string  | null: false                 |
+| last_name                 | string  | null: false                 |
+| first_name                | string  | null: false                 |
+| kana_last_name            | string  | null: false                 |
+| kana_first_name           | string  | null: false                 |
+| birthday                  | date    | null: false                 |
 
-# emailのユニーク制約はdeviceにデフォルトでかかっているため省いている
 
 ### Association
 
@@ -23,17 +22,17 @@
 -----------------------------------------------------------------------------------
 ## items テーブル
 
-| Column            | Type        | Option                          |
-| ----------------- | ----------- | ------------------------------- |
-| name              | string      | null: false                     |
-| explain           | text        | null: false                     |
-| category          | string      | null: false                     |
-| condition         | string      | null: false                     |
-| shipping_charge   | string      | null: false                     |
-| shipping_region   | string      | null: false                     |
-| shipping_days     | string      | null: false                     |
-| price             | string      | null: false                     |
-| user              | references  | null: false, foreign_key: true  |
+| Column               | Type        | Option                          |
+| -------------------- | ----------- | ------------------------------- |
+| name                 | string      | null: false                     |
+| explain              | text        | null: false                     |
+| category_id          | string      | null: false                     |
+| condition_id         | string      | null: false                     |
+| shipping_charge_id   | string      | null: false                     |
+| shipping_region_id   | string      | null: false                     |
+| shipping_days_id     | string      | null: false                     |
+| price                | integer     | null: false                     |
+| user                 | references  | null: false, foreign_key: true  |
 
 # imageはActiveStorageにて実装する
 
@@ -48,6 +47,7 @@
 | Column                | Type        | Option                          |
 | --------------------- | ----------- | ------------------------------- |
 | item                  | references  | null: false, foreign_key: true  |
+| user                  | references  | null: false, foreign_key: true  |
 
 ### Association
 
@@ -57,12 +57,12 @@
 
 -----------------------------------------------------------------------------------
 
-## order_infoテーブル
+## order_infosテーブル
 
 | Column                 | Type        | Option                          |
 | ---------------------- | ----------- | ------------------------------- |
 | post_code              | string      | null: false                     |
-| prefecture             | string      | null: false                     |
+| prefecture_id          | integer     | null: false                     |
 | municipalities         | string      | null: false                     |
 | address                | string      | null: false                     |
 | building               | string      |                                 |
