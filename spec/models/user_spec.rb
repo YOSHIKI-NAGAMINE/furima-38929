@@ -65,6 +65,12 @@ RSpec.describe User, type: :model do
         @user.invalid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
+      it "passwordが全角文字を含む時" do
+        @user.password = "１１１aaa"
+        @user.password_confirmation = @user.password
+        @user.invalid?
+        expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
+      end
       it "last_nameが空の時" do
         @user.last_name = ""
         @user.invalid?
