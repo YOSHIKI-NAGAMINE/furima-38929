@@ -15,6 +15,7 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
+  validates :image, presence: true, blob: { content_type: :image }
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
