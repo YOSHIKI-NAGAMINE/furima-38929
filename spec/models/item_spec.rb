@@ -5,7 +5,6 @@ RSpec.describe Item, type: :request do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
     @item.user_id = @user.id
-    @item.image = fixture_file_upload('public/images/test_image.png')
   end
   
 
