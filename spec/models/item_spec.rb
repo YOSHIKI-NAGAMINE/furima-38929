@@ -5,6 +5,7 @@ RSpec.describe Item, type: :request do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
     @item.user_id = @user.id
+    @item.image = fixture_file_upload('app/assets/images/flag.png')
   end
   
 
@@ -12,7 +13,6 @@ RSpec.describe Item, type: :request do
   describe '商品の出品ができる時' do
     context '出品できるとき' do
       it "ログイン状態で全ての項目が正確に入力されているとき" do
-        @item.image = fixture_file_upload('app/assets/images/flag.png')
         expect(@item).to be_valid
       end
     end
@@ -23,6 +23,7 @@ RSpec.describe Item, type: :request do
         expect(@item.errors.full_messages).to include("User must exist")
       end
       it "画像が空の時" do
+        @item.image = nil
         @item.invalid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
