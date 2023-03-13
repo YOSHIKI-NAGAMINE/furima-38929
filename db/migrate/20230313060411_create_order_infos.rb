@@ -3,8 +3,8 @@ class CreateOrderInfos < ActiveRecord::Migration[6.0]
     create_table :order_infos do |t|
 
 
-      t.string     :postal_code,      null: false
-      t.integer    :prefecture,       null: false
+      t.string     :post_code,      null: false
+      t.integer    :prefecture_id,       null: false
       t.string     :manicipalities,   null: false
       t.string     :address,          null: false
       t.string     :building
