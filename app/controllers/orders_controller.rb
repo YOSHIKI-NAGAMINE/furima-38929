@@ -12,21 +12,20 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.save
-    @order_info = OrderInfo.new(order_info_params)
-    @order_info.save
-    redirect_to root_path
+    @item = Item.find(params[:item_id])
+    @order_order_info = OrderOrderInfo.new(donation_params)
+    if @order_order_info.valid?
+      @order_order_info.save
+      redirect_to root_path
+    else
+      render action: :index
+    end
   end
 
   private
 
-  def order_params
-    params.permit(:item_id).merge(user_id: current_user.id)
-  end
-
-  def order_info_params
-    params.permit(:post_code, :prefecture_id, :manicipalities, :address, :building, :phone_number).merge(order_id: @order.id)
+  def donation_params
+    params.permit(:item_id, :post_code, :prefecture_id, :manicipalities, :address, :building, :phone_number).merge(user_id: current_user.id)
   end
 
 end
