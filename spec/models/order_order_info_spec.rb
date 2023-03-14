@@ -16,32 +16,32 @@ RSpec.describe OrderOrderInfo, type: :model do
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Token can't be blank")
       end
-      it 'post_codeが空の時' do
+      it '郵便番号が空の時' do
         @order_order_info.post_code = ""
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code can't be blank")
       end
-      it 'posta_codeがハイフンを含んでいなければ保存できないこと' do
+      it '郵便番号がハイフンを含んでいなければ保存できないこと' do
         @order_order_info.post_code = "1111111"
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
       end
-      it 'posta_codeが全角だと保存できないこと' do
+      it '郵便番号が全角だと保存できないこと' do
         @order_order_info.post_code = "１１１−１１１１"
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
       end
-      it 'posta_codeが半角英字だと保存できないこと' do
+      it '郵便番号が半角英字だと保存できないこと' do
         @order_order_info.post_code = "aaa-aaaa"
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
       end
-      it 'posta_codeが半角ｶﾅだと保存できないこと' do
+      it '郵便番号が半角ｶﾅだと保存できないこと' do
         @order_order_info.post_code = "ｱｱｱ-ｱｱｱｱ"
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
       end
-      it 'posta_codeが3文字-4文字の形以外だと保存できないこと' do
+      it '郵便番号が3文字-4文字の形以外だと保存できないこと' do
         @order_order_info.post_code = "1111-111"
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
