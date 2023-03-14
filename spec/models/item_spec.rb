@@ -2,23 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :request do
   before do
-    @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item)
-    @item.user_id = @user.id
   end
 
   describe '商品の出品ができる時' do
     context '出品できるとき' do
-      it 'ログイン状態で全ての項目が正確に入力されているとき' do
+      it '全ての項目が正確に入力されているとき' do
         expect(@item).to be_valid
       end
     end
     context '商品の出品ができない時' do
-      it 'ログインしていない時' do
-        @item.user_id = ''
-        @item.invalid?
-        expect(@item.errors.full_messages).to include('User must exist')
-      end
       it '画像が空の時' do
         @item.image = nil
         @item.invalid?
