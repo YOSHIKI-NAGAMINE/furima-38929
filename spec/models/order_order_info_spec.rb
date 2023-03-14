@@ -12,39 +12,39 @@ RSpec.describe OrderOrderInfo, type: :model do
     end
     context '内容に問題がある場合' do
       it 'tokenが空の時' do
-        @order_order_info.token = ""
+        @order_order_info.token = ''
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Token can't be blank")
       end
       it '郵便番号が空の時' do
-        @order_order_info.post_code = ""
+        @order_order_info.post_code = ''
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include("Post code can't be blank")
       end
       it '郵便番号がハイフンを含んでいなければ保存できないこと' do
-        @order_order_info.post_code = "1111111"
+        @order_order_info.post_code = '1111111'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_order_info.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it '郵便番号が全角だと保存できないこと' do
-        @order_order_info.post_code = "１１１−１１１１"
+        @order_order_info.post_code = '１１１−１１１１'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_order_info.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it '郵便番号が半角英字だと保存できないこと' do
-        @order_order_info.post_code = "aaa-aaaa"
+        @order_order_info.post_code = 'aaa-aaaa'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_order_info.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it '郵便番号が半角ｶﾅだと保存できないこと' do
-        @order_order_info.post_code = "ｱｱｱ-ｱｱｱｱ"
+        @order_order_info.post_code = 'ｱｱｱ-ｱｱｱｱ'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_order_info.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it '郵便番号が3文字-4文字の形以外だと保存できないこと' do
-        @order_order_info.post_code = "1111-111"
+        @order_order_info.post_code = '1111-111'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_order_info.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it '都道府県が空の時' do
         @order_order_info.prefecture_id = ''
@@ -74,22 +74,22 @@ RSpec.describe OrderOrderInfo, type: :model do
       it '電話番号が10桁未満の時' do
         @order_order_info.phone_number = '123456789'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Phone number is too short")
+        expect(@order_order_info.errors.full_messages).to include('Phone number is too short')
       end
       it '電話番号が全角の時' do
         @order_order_info.phone_number = '１２３４５６７８９０'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_order_info.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it '電話番号が半角英字の時' do
         @order_order_info.phone_number = 'aaaaaaaaaa'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_order_info.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it '電話番号が半角ｶﾅの時' do
         @order_order_info.phone_number = 'ﾊﾝｶｸｶﾅﾊﾝｶｸ'
         @order_order_info.invalid?
-        expect(@order_order_info.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_order_info.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'userが紐づいていない時' do
         @order_order_info.user_id = ''
