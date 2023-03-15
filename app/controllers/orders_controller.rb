@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @item = Item.find(params[:item_id])
+    set_item
     @order = Order.new
     @order_order_info = OrderOrderInfo.new
     if @item.user_id == current_user.id
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
+    set_item
     @order_order_info = OrderOrderInfo.new(order_params)
     if @order_order_info.valid?
       Payjp.api_key = ENV['PAYJP_SECRET_KEY']
@@ -33,6 +33,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order_order_info).permit(:post_code, :prefecture_id, :manicipalities, :address, :building,
-                                             :phone_number).merge(user_id: current_user.id).merge(token: params[:token]).merge(item_id: params[:item_id])
+                                             :phone_number).merge(user_id: current_user.id, token: params[:token], item_id: params[:item_id])
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
