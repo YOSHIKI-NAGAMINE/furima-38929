@@ -2,11 +2,19 @@ require 'rails_helper'
 
 RSpec.describe OrderOrderInfo, type: :model do
   before do
-    @order_order_info = FactoryBot.build(:order_order_info, user_id: 1, item_id: 1)
+    @user = FactoryBot.build(:user)
+    @item = FactoryBot.build(:item)
+    @order_order_info = FactoryBot.build(:order_order_info)
+    @order_order_info.user_id = @user.id
+    @order_order_info.item_id = @item.id
   end
   describe '商品購入情報の保存' do
     context '購入情報が保存できる時' do
       it '全ての項目が正確に入力されているとき' do
+        expect(@order_order_info).to be_valid
+      end
+      it '建物名が空でも購入できる' do
+        @order_order_info.building = ""
         expect(@order_order_info).to be_valid
       end
     end
@@ -73,6 +81,11 @@ RSpec.describe OrderOrderInfo, type: :model do
       end
       it '電話番号が10桁未満の時' do
         @order_order_info.phone_number = '123456789'
+        @order_order_info.invalid?
+        expect(@order_order_info.errors.full_messages).to include('Phone number is too short')
+      end
+      it '電話番号が12桁以上の時' do
+        @order_order_info.phone_number = '123456789012'
         @order_order_info.invalid?
         expect(@order_order_info.errors.full_messages).to include('Phone number is too short')
       end
